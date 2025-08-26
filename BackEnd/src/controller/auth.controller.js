@@ -38,9 +38,7 @@ export const signup = async (req, res) => {
         email: newUser.email,
         profilePic: newUser.profilePic,
         universityName: newUser.universityName,
-        experienceLevel: newUser.experienceLevel,
-        totalPoints: newUser.totalPoints,
-        badgeCount: newUser.badgeCount,
+        Job: newUser.Job,
         createdAt: newUser.createdAt,
         token, // Send the token in the response to be used on the frontend
       });
@@ -75,9 +73,7 @@ export const login = async (req, res) => {
       email: user.email,
       profilePic: user.profilePic,
       universityName: user.universityName,
-      experienceLevel: user.experienceLevel,
-      totalPoints: user.totalPoints,
-      badgeCount: user.badgeCount,
+      Job: user.Job,
       createdAt: user.createdAt,
       token, // Send the token in the response
     });
@@ -100,7 +96,7 @@ export const logout = (req, res) => {
 // FIXED UPDATE PROFILE FUNCTION
 export const updateProfile = async (req, res) => {
   try {
-    const { profilePic, fullName, universityName, experienceLevel } = req.body;
+    const { profilePic, fullName, universityName, Job } = req.body;
     const userId = req.user._id;
     const updateData = {};
 
@@ -118,7 +114,7 @@ export const updateProfile = async (req, res) => {
     // Handle other fields
     if (fullName !== undefined) updateData.fullName = fullName;
     if (universityName !== undefined) updateData.universityName = universityName;
-    if (experienceLevel !== undefined) updateData.experienceLevel = experienceLevel;
+    if ( Job!== undefined) updateData.Job = Job;
 
     // Update user data
     const updatedUser = await User.findByIdAndUpdate(
@@ -138,7 +134,7 @@ export const updateProfile = async (req, res) => {
       email: updatedUser.email,
       profilePic: updatedUser.profilePic,
       universityName: updatedUser.universityName,
-      experienceLevel: updatedUser.experienceLevel,
+      Job: updatedUser.Job,
       totalPoints: updatedUser.totalPoints,
       badgeCount: updatedUser.badgeCount,
       createdAt: updatedUser.createdAt,
@@ -158,9 +154,7 @@ export const checkAuth = (req, res) => {
       email: user.email,
       profilePic: user.profilePic,
       universityName: user.universityName,
-      experienceLevel: user.experienceLevel,
-      totalPoints: user.totalPoints,
-      badgeCount: user.badgeCount,
+      Job: user.Job,
       createdAt: user.createdAt,
     });
   } catch (error) {

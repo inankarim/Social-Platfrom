@@ -141,15 +141,15 @@ export const useGroupChatStore = create((set, get) => ({
   subscribeToGroupMessages: (groupId) => {
     const socket = useAuthStore.getState().socket;
     if (!socket) {
-      console.warn("⚠️ No socket available for group subscription");
+      console.warn(" No socket available for group subscription");
       return;
     }
 
-    console.log(`🔌 Subscribing to group messages: ${groupId}`);
+    console.log(` Subscribing to group messages: ${groupId}`);
 
     // Listen for new group messages
     socket.on("newGroupMessage", (newMessage) => {
-      console.log("📨 Received new group message:", newMessage);
+      console.log(" Received new group message:", newMessage);
       const { selectedGroup, groupMessages } = get();
       
       // Only update if the message is for the currently selected group
@@ -176,7 +176,7 @@ export const useGroupChatStore = create((set, get) => ({
 
     const { selectedGroup } = get();
     
-    console.log(`🔌 Unsubscribing from group messages: ${selectedGroup?._id}`);
+    console.log(` Unsubscribing from group messages: ${selectedGroup?._id}`);
     
     // Leave the group room
     if (selectedGroup) {
@@ -191,17 +191,17 @@ export const useGroupChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
     if (!socket) return;
 
-    console.log("🔌 Subscribing to group updates");
+    console.log(" Subscribing to group updates");
 
     socket.on("groupCreated", (newGroup) => {
-      console.log("📢 New group created:", newGroup);
+      console.log(" New group created:", newGroup);
       const { groups } = get();
       set({ groups: [...groups, newGroup] });
       toast.success(`You were added to group: ${newGroup.name}`);
     });
 
     socket.on("userAddedToGroup", ({ group, user, message }) => {
-      console.log("📢 User added to group:", { group, user });
+      console.log("User added to group:", { group, user });
       const { groups } = get();
       const updatedGroups = groups.map(g => 
         g._id === group._id ? { ...g, members: [...g.members, user] } : g
@@ -211,7 +211,7 @@ export const useGroupChatStore = create((set, get) => ({
     });
 
     socket.on("userRemovedFromGroup", ({ groupId, userId, message }) => {
-      console.log("📢 User removed from group:", { groupId, userId });
+      console.log("User removed from group:", { groupId, userId });
       const { groups } = get();
       const updatedGroups = groups.map(group => 
         group._id === groupId 
@@ -228,7 +228,7 @@ export const useGroupChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
     if (!socket) return;
 
-    console.log("🔌 Unsubscribing from group updates");
+    console.log("Unsubscribing from group updates");
     socket.off("groupCreated");
     socket.off("userAddedToGroup");
     socket.off("userRemovedFromGroup");
@@ -237,12 +237,12 @@ export const useGroupChatStore = create((set, get) => ({
   // Add user to group
   addUserToGroup: async (groupId, userId) => {
     if (!groupId || !userId) {
-      console.error("❌ Invalid data for addUserToGroup:", { groupId, userId });
+      console.error("Invalid data for addUserToGroup:", { groupId, userId });
       return;
     }
 
     try {
-      console.log(`🔄 Adding user ${userId} to group ${groupId}`);
+      console.log(`Adding user ${userId} to group ${groupId}`);
       const res = await axiosInstance.put(`/group/${groupId}/addUser`, { userId });
       
       // Update the selected group if it's the one being modified
@@ -260,7 +260,7 @@ export const useGroupChatStore = create((set, get) => ({
       toast.success("User added to group successfully");
       return res.data;
     } catch (error) {
-      console.error("❌ Failed to add user to group:", error);
+      console.error("Failed to add user to group:", error);
       toast.error(error.response?.data?.message || "Failed to add user to group");
       throw error;
     }
@@ -268,7 +268,7 @@ export const useGroupChatStore = create((set, get) => ({
 
   // Set selected group
   setSelectedGroup: (selectedGroup) => {
-    console.log("🎯 Setting selected group:", selectedGroup?._id);
+    console.log("Setting selected group:", selectedGroup?._id);
     
     // Unsubscribe from previous group
     if (get().selectedGroup) {
@@ -287,13 +287,13 @@ export const useGroupChatStore = create((set, get) => ({
 
   // Initialize group chat store
   initialize: () => {
-    console.log("🚀 Initializing group chat store");
+    console.log("Initializing group chat store");
     get().subscribeToGroupUpdates();
   },
 
   // Cleanup function
   cleanup: () => {
-    console.log("🧹 Cleaning up group chat store");
+    console.log("Cleaning up group chat store");
     get().unsubscribeFromGroupMessages();
     get().unsubscribeFromGroupUpdates();
   },

@@ -26,18 +26,10 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     // Experience level
-    experienceLevel: {
+    Job: {
       type: String,
-      enum: ['Beginner', 'Intermediate', 'Advanced'],
-      default: 'Beginner'
+      default: ''
     },
-    // Points system
-    totalPoints: {
-      type: Number,
-      default: 0,
-      min: 0
-    },
-   
     
     // lastActive field
     lastActive: {

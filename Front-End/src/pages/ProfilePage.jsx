@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
   const [universityName, setUniversityName] = useState(authUser?.universityName || "");
-  const [experienceLevel, setExperienceLevel] = useState(authUser?.experienceLevel || "Beginner");
+  const [Job, setJob] = useState(authUser?.Job || "");
 
   useEffect(() => {
     // No need to call fetchUserData here, as we're using authUser from useAuthStore directly
@@ -22,8 +22,9 @@ const ProfilePage = () => {
 
     reader.onload = async () => {
       const base64Image = reader.result;
-      setSelectedImg(base64Image);
+      setSelectedImg(base64Image); // Set the preview image
       await updateProfile({ profilePic: base64Image });
+      setSelectedImg(null); // Reset after the update
     };
   };
 
@@ -33,8 +34,8 @@ const ProfilePage = () => {
   };
 
   // Function to update experience level
-  const handleExperienceLevelUpdate = async () => {
-    await updateProfile({ experienceLevel });
+  const handleJobUpdate = async () => {
+    await updateProfile({ Job });
   };
 
   return (
@@ -126,42 +127,39 @@ const ProfilePage = () => {
             {/* Experience Level */}
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
-                <Target className="w-4 h-4" />
-                Experience Level
+                Job Description
               </div>
               <div className="flex gap-2">
-                <select
-                  value={experienceLevel}
-                  onChange={(e) => setExperienceLevel(e.target.value)}
+                <input
+                  type="text"
+                  value={Job}
+                  onChange={(e) => setJob(e.target.value)}
                   className="px-4 py-2.5 bg-base-200 rounded-lg border flex-1"
+                  placeholder="Enter your job description"
                   disabled={isUpdatingProfile}
-                >
-                  <option value="Beginner">Beginner</option>
-                  <option value="Intermediate">Intermediate</option>
-                  <option value="Advanced">Advanced</option>
-                </select>
+                />
                 <button
                   className="btn btn-primary"
-                  onClick={handleExperienceLevelUpdate}
+                  onClick={handleJobUpdate}
                   disabled={isUpdatingProfile}
                 >
                   Update
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* Account Information */}
-          <div className="mt-6 bg-base-300 rounded-xl p-6">
-            <h2 className="text-lg font-medium mb-4">Account Information</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between py-2 border-b border-zinc-700">
-                <span>Member Since</span>
-                <span>{authUser.createdAt?.split("T")[0]}</span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span>Account Status</span>
-                <span className="text-green-500">Active</span>
+            {/* Account Information */}
+            <div className="mt-6 bg-base-300 rounded-xl p-6">
+              <h2 className="text-lg font-medium mb-4">Account Information</h2>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center justify-between py-2 border-b border-zinc-700">
+                  <span>Member Since</span>
+                  <span>{authUser.createdAt?.split("T")[0]}</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span>Account Status</span>
+                  <span className="text-green-500">Active</span>
+                </div>
               </div>
             </div>
           </div>
