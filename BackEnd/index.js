@@ -45,11 +45,11 @@ app.use("/api/post", postRoutes);
 
 // Static files (production)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../Front-End/dist")));
   
   // Express 5-compatible catch-all (avoid "*")
   app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../Front-End", "dist", "index.html"));
   });
 }
 

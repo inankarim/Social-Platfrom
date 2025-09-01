@@ -1,0 +1,13 @@
+{
+  "name": "social-platfrom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix BackEnd && npm install --prefix Front-End && npm run build --prefix Front-End",
+    "start":"npm run start --prefix BackEnd"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
