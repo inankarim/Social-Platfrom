@@ -34,8 +34,7 @@ router.post("/", protectRoute, createPost);
 // Get all posts (with pagination)
 router.get("/getpost", protectRoute, getPosts);
 
-// Get specific post by ID
-router.get("/:id", protectRoute, getPostById);
+
 
 // Get posts by specific user
 router.get("/user/:userId", protectRoute, getUserPosts);

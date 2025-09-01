@@ -303,7 +303,7 @@ export const createComment = async (req, res) => {
     }
 
     const populatedComment = await Comment.findById(newComment._id)
-      .populate("senderId", USER_PUBLIC_FIELDS)
+      .populate("userId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(201).json(populatedComment);
@@ -389,7 +389,7 @@ export const getReplies = async (req, res) => {
     }
 
     const replies = await Comment.find({ parentCommentId: commentId })
-      .populate("senderId", USER_PUBLIC_FIELDS)
+      .populate("userId", USER_PUBLIC_FIELDS)
       .sort({ createdAt: 1 })
       .skip(skip)
       .limit(limit)
@@ -460,7 +460,7 @@ export const updateComment = async (req, res) => {
     await comment.save();
 
     const updatedComment = await Comment.findById(commentId)
-      .populate("senderId", USER_PUBLIC_FIELDS)
+      .populate("userId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(200).json(updatedComment);
