@@ -37,12 +37,12 @@ router.post("/:groupId/send", protectRoute, sendGroupMessage);
 router.put("/:groupId/addUser", protectRoute, addUserToGroup);
 
 // Rename a group (NEW ROUTE)
-router.put("/group/:groupId/rename", protectRoute, renameGroup);
+router.put("/:groupId/rename", protectRoute, renameGroup);
 
 // Add route for leaving a group
-router.delete("/group/:groupId/leave", protectRoute, leaveGroup);
+router.delete("/:groupId/leave", protectRoute, leaveGroup);
 
 // Add route for removing a member from the group
-router.delete("/group/:groupId/removeUser", protectRoute, removeUserFromGroup);
+router.delete("/:groupId/removeUser", protectRoute, removeUserFromGroup);
 
 export default router;

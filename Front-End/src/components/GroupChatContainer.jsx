@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import GroupChatHeader from "./GroupChatHeader";
 import GroupMessageInput from "./GroupMessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore.js";
 import { formatMessageTime } from "../lib/utils";
 
 const GroupChatContainer = () => {

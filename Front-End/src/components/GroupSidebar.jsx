@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useGroupChatStore } from "../store/useGroupChatStore"; // Fixed case sensitivity
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore.js";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
 import { Users, Plus } from "lucide-react";
 

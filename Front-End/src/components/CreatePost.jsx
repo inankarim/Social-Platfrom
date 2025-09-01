@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { ImagePlus, X } from "lucide-react";
 import { usepostStore } from "../store/usepostStore";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore.js";
 import { motion } from "framer-motion";
 
 export default function CreatePost({ onPosted }) {

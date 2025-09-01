@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useGroupChatStore } from "../store/useGroupChatStore";
+import { useGroupChatStore } from "../store/useGroupChatStore.js";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 

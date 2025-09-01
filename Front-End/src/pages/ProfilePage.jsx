@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore.js";
 import { Camera, Mail, User, Target } from "lucide-react"; // Make sure to import 'Target' icon
 
 const ProfilePage = () => {

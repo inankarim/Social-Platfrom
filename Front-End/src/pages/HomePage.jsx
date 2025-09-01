@@ -1,6 +1,6 @@
 import { useChatStore } from "../store/useChatStore";
-import { useGroupChatStore } from "../store/useGroupChatStore";
-import { useAuthStore } from "../store/useAuthStore";
+import { useGroupChatStore } from "../store/useGroupChatStore.js";
+import { useAuthStore } from "../store/useAuthStore.js";
 import { useState } from "react";
 import { MessageSquare, Users } from "lucide-react";
 

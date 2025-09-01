@@ -7,7 +7,7 @@ import cloudinary from "../lib/cloudinary.js";
 import mongoose from "mongoose";
 
 // ============ POST CONTROLLERS ============
-
+const USER_PUBLIC_FIELDS = "fullName profilePic email Job universityName";
 export const createPost = async (req, res) => {
   try {
     const { text, image } = req.body;
@@ -32,7 +32,7 @@ export const createPost = async (req, res) => {
     await newPost.save();
 
     const populatedPost = await Post.findById(newPost._id)
-      .populate("senderId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(201).json(populatedPost);
@@ -50,7 +50,7 @@ export const getPosts = async (req, res) => {
     const currentUserId = req.user._id;
 
     const posts = await Post.find()
-      .populate("senderId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
@@ -97,7 +97,7 @@ export const getPostById = async (req, res) => {
     const currentUserId = req.user._id;
 
     const post = await Post.findById(id)
-      .populate("senderId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .lean();
 
     if (!post) {
@@ -135,7 +135,7 @@ export const getUserPosts = async (req, res) => {
     }
 
     const posts = await Post.find({ senderId: userId })
-      .populate("senderId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
@@ -208,7 +208,7 @@ export const updatePost = async (req, res) => {
     await post.save();
 
     const updatedPost = await Post.findById(id)
-      .populate("senderId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(200).json(updatedPost);
@@ -303,7 +303,7 @@ export const createComment = async (req, res) => {
     }
 
     const populatedComment = await Comment.findById(newComment._id)
-      .populate("userId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(201).json(populatedComment);
@@ -331,7 +331,7 @@ export const getComments = async (req, res) => {
       postId, 
       parentCommentId: null 
     })
-      .populate("userId", "fullName profilePic")
+      .populate("userId", "fullName profilePic email Job universityName")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
@@ -389,7 +389,7 @@ export const getReplies = async (req, res) => {
     }
 
     const replies = await Comment.find({ parentCommentId: commentId })
-      .populate("userId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .sort({ createdAt: 1 })
       .skip(skip)
       .limit(limit)
@@ -460,7 +460,7 @@ export const updateComment = async (req, res) => {
     await comment.save();
 
     const updatedComment = await Comment.findById(commentId)
-      .populate("userId", "fullName profilePic")
+      .populate("senderId", USER_PUBLIC_FIELDS)
       .lean();
 
     res.status(200).json(updatedComment);
@@ -608,7 +608,7 @@ export const getReactions = async (req, res) => {
     if (type && ["love", "like", "funny", "horror"].includes(type)) query.type = type;
 
     const reactions = await Reaction.find(query)
-      .populate("userId", "fullName profilePic")
+     .populate("senderId", USER_PUBLIC_FIELDS)
       .sort({ createdAt: -1 })
       .lean();
 

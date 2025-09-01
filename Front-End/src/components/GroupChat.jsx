@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useGroupChatStore } from '../store/useGroupChatStore';
-import { useAuthStore } from '../store/useAuthStore';
+import { useGroupChatStore } from '../store/useGroupChatStore.js';
+import { useAuthStore } from '../store/useAuthStore.js';
 import { axiosInstance } from '../lib/axios';
 
 export default function GroupChat({ onGroupCreated, currentUser, onCancel }) {

@@ -1,6 +1,6 @@
 import { X, Users, Info, UserMinus, LogOut, UserPlus, Search, Edit3 } from "lucide-react";
-import { useAuthStore } from "../store/useAuthStore";
-import { useGroupChatStore } from "../store/useGroupChatStore";
+import { useAuthStore } from "../store/useAuthStore.js";
+import { useGroupChatStore } from "../store/useGroupChatStore.js";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
