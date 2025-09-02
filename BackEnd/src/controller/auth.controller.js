@@ -134,8 +134,6 @@ export const updateProfile = async (req, res) => {
       profilePic: updatedUser.profilePic,
       universityName: updatedUser.universityName,
       Job: updatedUser.Job,
-      totalPoints: updatedUser.totalPoints,
-      badgeCount: updatedUser.badgeCount,
       createdAt: updatedUser.createdAt,
     });
   } catch (error) {
@@ -158,20 +156,6 @@ export const checkAuth = (req, res) => {
     });
   } catch (error) {
     console.log("Error in checkAuth controller", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
-
-// Get active users count in the last 30 minutes
-
-export const getActiveUsersCount = async (req, res) => {
-  try {
-    const activeUsersCount = await User.countDocuments({
-      lastActive: { $gte: new Date(Date.now() - 3600000) } // Active in the last 1 hour
-    });
-    res.status(200).json({ activeUsersCount });
-  } catch (error) {
-    console.log("Error in getting active users count:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

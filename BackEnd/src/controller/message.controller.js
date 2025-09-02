@@ -1,13 +1,26 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
-
 import cloudinary from "../lib/cloudinary.js";
 import { getReceiverSocketId, io } from "../lib/socket.js";
 
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
-    const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+
+    // 1️⃣ Get all unique users who sent messages to me
+    const sentToMe = await Message.distinct("senderId", { receiverId: loggedInUserId });
+
+    // 2️⃣ Get all unique users I sent messages to
+    const iSentTo = await Message.distinct("receiverId", { senderId: loggedInUserId });
+
+    // 3️⃣ Combine, remove duplicates, and remove self
+    const userIdsSet = new Set([...sentToMe, ...iSentTo]);
+    userIdsSet.delete(String(loggedInUserId)); // remove self
+
+    const userIds = Array.from(userIdsSet);
+
+    // 4️⃣ Fetch user details
+    const filteredUsers = await User.find({ _id: { $in: userIds } }).select("-password");
 
     res.status(200).json(filteredUsers);
   } catch (error) {
