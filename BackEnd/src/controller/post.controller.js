@@ -13,8 +13,8 @@ export const createPost = async (req, res) => {
     const { text, image } = req.body;
     const senderId = req.user._id;
 
-    if (!text && !image) {
-      return res.status(400).json({ error: "Post must contain either text or image" });
+    if (!text && image) {
+      return res.status(400).json({ error: "Post must contain text" });
     }
 
     let imageUrl;
